@@ -1,0 +1,40 @@
+buildscript {
+
+	repositories {
+		mavenCentral()
+	}
+
+}
+
+group 'org.bvkatwijk.java.jasmine'
+description 'Java Jasmine'
+version '0.0.1'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+	provided group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+
+	compile group: 'junit', name: 'junit', version: '4.12'
+	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+
+}
+
+test {
+	testLogging {
+        events "standardOut", "started", "passed", "skipped", "failed"
+    }
+}
