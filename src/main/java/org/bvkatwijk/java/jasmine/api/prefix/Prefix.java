@@ -4,6 +4,6 @@ public enum Prefix {
 
 	NONE,
 	F,
-	X
+	X,
 
 }
