@@ -8,7 +8,7 @@ public class JasmineDescriptionTest {
 
 	@Test
 	public void description_ofAnonymousClass_hasDisplayNameJasmineTest() {
-		Assert.assertEquals("JasmineTest",
+		Assert.assertEquals("JasmineInternalTest",
 				new JasmineDescription(Jasmine.DESCRIBE_IT.getJasmineGroup())
 				.get()
 				.getDisplayName());
