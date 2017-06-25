@@ -1,5 +1,7 @@
 # Java-Jasmine
 
+https://travis-ci.org/bvkatwijk/Java-Jasmine.svg?branch=master
+
 ## Summary
 
 ## Syntax
