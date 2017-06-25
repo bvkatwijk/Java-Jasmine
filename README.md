@@ -1,6 +1,6 @@
 # Java-Jasmine
 
-https://travis-ci.org/bvkatwijk/Java-Jasmine.svg?branch=master
+[![Build Status](https://travis-ci.org/bvkatwijk/Java-Jasmine.svg?branch=master)](https://travis-ci.org/bvkatwijk/Java-Jasmine)
 
 ## Summary
 
