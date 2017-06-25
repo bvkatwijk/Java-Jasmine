@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
 import org.bvkatwijk.java.jasmine.api.test.JasmineTest;
+import org.bvkatwijk.java.jasmine.name.ClassNameProvider;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class JasmineGroup implements JasmineNode {
 	public static JasmineGroup of(JasmineTest jasmineTest) {
 		return recursiveFrom(
 				jasmineTest,
-				jasmineTest.getClass().getSimpleName(),
+				ClassNameProvider.getClassName(jasmineTest.getClass()),
 				Prefix.NONE);
 	}
 
