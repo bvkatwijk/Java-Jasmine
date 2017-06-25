@@ -17,8 +17,8 @@ public class JasmineGroupIgnorerTest {
 
 	@Test
 	public void ignorer_shouldNotRunJasmineCase() {
-		new JasmineGroupIgnorer()
-		.ignoreIt(new RunNotifier(), "className")
+		new JasmineGroupIgnorer("baseName")
+		.ignoreCase(new RunNotifier())
 		.accept(new JasmineCase("description", Prefix.NONE, () -> { didRun.set(true); }));
 		
 		Assert.assertFalse(didRun.get());
