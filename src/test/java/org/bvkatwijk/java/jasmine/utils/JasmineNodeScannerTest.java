@@ -16,10 +16,44 @@ public class JasmineNodeScannerTest {
 				.of(node -> Prefix.X.equals(node.getPrefix()))
 				.anyMatch(new JasmineTest(){{
 
+					xdescribe("xdescribe", () -> {
+
+						it("it", () -> {
+							//
+						});
+
+					});
+
+				}}.compile()));
+	}
+	
+	@Test
+	public void scanner_shouldDetectIgnoreCase() {
+		Assert.assertTrue(JasmineNodeScanner
+				.of(node -> Prefix.X.equals(node.getPrefix()))
+				.anyMatch(new JasmineTest(){{
+
 					describe("describe", () -> {
 
-						xit("should not run xit case", () -> {
-							throw new AssertionError("should not be executed");
+						xit("xit", () -> {
+							//
+						});
+
+					});
+
+				}}.compile()));
+	}
+	
+	@Test
+	public void scanner_shouldDetectFocusGroup() {
+		Assert.assertTrue(JasmineNodeScanner
+				.of(node -> Prefix.F.equals(node.getPrefix()))
+				.anyMatch(new JasmineTest(){{
+
+					fdescribe("fdescribe", () -> {
+
+						it("it", () -> {
+							//
 						});
 
 					});
@@ -28,15 +62,15 @@ public class JasmineNodeScannerTest {
 	}
 
 	@Test
-	public void scanner_shouldDetectIgnoreCase() {
+	public void scanner_shouldDetectFocusCase() {
 		Assert.assertTrue(JasmineNodeScanner
-				.of(node -> Prefix.X.equals(node.getPrefix()))
+				.of(node -> Prefix.F.equals(node.getPrefix()))
 				.anyMatch(new JasmineTest(){{
 
-					xdescribe("xdescribe", () -> {
+					describe("describe", () -> {
 
-						it("should not run it case", () -> {
-							throw new AssertionError("should not be executed");
+						fit("fit", () -> {
+							//
 						});
 
 					});
