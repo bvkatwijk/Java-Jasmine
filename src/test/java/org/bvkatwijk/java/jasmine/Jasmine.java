@@ -2,7 +2,7 @@ package org.bvkatwijk.java.jasmine;
 
 import java.util.function.Supplier;
 
-import org.bvkatwijk.java.jasmine.api.test.JasmineTest;
+import org.bvkatwijk.java.jasmine.api.test.JasmineInternalTest;
 import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
 
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Jasmine {
 
-	DESCRIBE_IT(() -> new JasmineTest(){{
+	DESCRIBE_IT(() -> new JasmineInternalTest(){{
 		describe("describe", () -> {
 			it("it", () -> {
 				//
@@ -18,7 +18,7 @@ public enum Jasmine {
 		});
 	}}),
 
-	DESCRIBE_FIT(() -> new JasmineTest(){{
+	DESCRIBE_FIT(() -> new JasmineInternalTest(){{
 		describe("describe", () -> {
 			fit("fit", () -> {
 				//
@@ -26,7 +26,7 @@ public enum Jasmine {
 		});
 	}}),
 
-	DESCRIBE_XIT(() -> new JasmineTest(){{
+	DESCRIBE_XIT(() -> new JasmineInternalTest(){{
 		describe("describe", () -> {
 			xit("xit", () -> {
 				//
@@ -34,7 +34,7 @@ public enum Jasmine {
 		});
 	}}),
 
-	FDESCRIBE_IT(() -> new JasmineTest(){{
+	FDESCRIBE_IT(() -> new JasmineInternalTest(){{
 		fdescribe("fdescribe", () -> {
 			it("it", () -> {
 				//
@@ -42,7 +42,7 @@ public enum Jasmine {
 		});
 	}}),
 
-	XDESCRIBE_IT(() -> new JasmineTest(){{
+	XDESCRIBE_IT(() -> new JasmineInternalTest(){{
 		xdescribe("xdescribe", () -> {
 			it("it", () -> {
 				//
@@ -52,14 +52,14 @@ public enum Jasmine {
 
 	;
 
-	private final Supplier<JasmineTest> jasmineTestSupplier;
+	private final Supplier<JasmineInternalTest> jasmineTestSupplier;
 
-	public JasmineTest getJasmineTest() {
+	public JasmineInternalTest getJasmineTest() {
 		return jasmineTestSupplier.get();
 	}
 
 	public JasmineGroup getJasmineGroup() {
-		return jasmineTestSupplier.get().compile();
+		return getJasmineTest().compile();
 	}
 
 }
