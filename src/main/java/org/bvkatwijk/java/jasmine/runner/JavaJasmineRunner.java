@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import org.bvkatwijk.java.jasmine.api.test.JasmineTest;
 import org.bvkatwijk.java.jasmine.compiled.JasmineCase;
 import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
-import org.bvkatwijk.java.jasmine.name.ClassNameProvider;
+import org.bvkatwijk.java.jasmine.mode.JasmineModeDecider;
 import org.bvkatwijk.java.jasmine.runner.description.JasmineDescription;
 import org.bvkatwijk.java.jasmine.runner.run.JasmineGroupRunner;
 import org.junit.runner.Description;
@@ -14,22 +14,21 @@ import org.junit.runner.notification.RunNotifier;
 
 public class JavaJasmineRunner extends Runner {
 
-	private final JasmineGroup jasmineTest;
-	private final JasmineTest test;
+	private final JasmineGroup jasmineGroup;
 
 	public JavaJasmineRunner(Class<JasmineTest> testClass) throws Exception {
-		this.test = testClass.newInstance();
-		this.jasmineTest = test.compile();
+		this.jasmineGroup = testClass.newInstance().compile();
 	}
 
 	@Override
 	public Description getDescription() {
-		return new JasmineDescription(jasmineTest).get();
+		return new JasmineDescription(jasmineGroup).get();
 	}
 
 	@Override
 	public void run(RunNotifier runNotifier) {
-		runCasesAndSubGroups(runNotifier).accept(jasmineTest);
+		new JasmineModeDecider(jasmineGroup).get();
+		runCasesAndSubGroups(runNotifier).accept(jasmineGroup);
 	}
 
 	private Consumer<? super JasmineGroup> runCasesAndSubGroups(RunNotifier runNotifier) {
@@ -40,7 +39,7 @@ public class JavaJasmineRunner extends Runner {
 	}
 
 	private Consumer<? super JasmineCase> runIt(RunNotifier runNotifier) {
-		return new JasmineGroupRunner().runIt(runNotifier, ClassNameProvider.getClassName(test.getClass()));
+		return new JasmineGroupRunner().runIt(runNotifier, jasmineGroup.getDescription());
 	}
 
 }
