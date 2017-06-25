@@ -3,6 +3,7 @@ package org.bvkatwijk.java.jasmine.compiled;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class JasmineGroup {
+public class JasmineGroup implements JasmineNode {
 
 	private final String description;
 	private final Prefix prefix;
@@ -64,9 +65,8 @@ public class JasmineGroup {
 	}
 
 	@Override
-	public String toString() {
-		return new JasmineGroupPrinter(this)
-				.toString();
+	public Collection<JasmineNode> getChilden() {
+		return Stream.concat(getGroups().stream(), getCases().stream()).collect(Collectors.toSet());
 	}
 
 }
