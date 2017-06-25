@@ -6,7 +6,7 @@ import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(staticName="of")
+@RequiredArgsConstructor
 public class JasmineNodeScanner {
 
 	private final Predicate<JasmineNode> predicate;
