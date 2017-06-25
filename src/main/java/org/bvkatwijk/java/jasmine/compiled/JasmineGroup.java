@@ -52,6 +52,7 @@ public class JasmineGroup implements JasmineNode {
 		jasmineTest.getIts().clear();
 
 		describe.getTestGroup().run();
+
 		return JasmineGroup.recursiveFrom(
 				jasmineTest,
 				describe.getDescription(),
