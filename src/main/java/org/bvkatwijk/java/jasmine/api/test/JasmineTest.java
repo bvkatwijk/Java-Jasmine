@@ -15,7 +15,7 @@ import lombok.Getter;
 
 @Getter
 @RunWith(JavaJasmineRunner.class)
-public class JasmineTest implements JasmineSignature {
+public abstract class JasmineTest implements JasmineSignature {
 	
 	final Collection<Describe> describes = new HashSet<>();
 	final Collection<It> its = new HashSet<>();
