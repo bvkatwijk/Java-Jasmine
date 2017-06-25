@@ -2,9 +2,11 @@ package org.bvkatwijk.java.jasmine.api.it;
 
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
 
-import lombok.Value;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Value
+@Getter
+@RequiredArgsConstructor
 public class It {
 
 	private final String description;
