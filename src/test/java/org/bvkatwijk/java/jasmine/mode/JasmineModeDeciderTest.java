@@ -4,6 +4,9 @@ import org.bvkatwijk.java.jasmine.Jasmine;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Test cases for {@link JasmineModeDecider}
+ */
 public class JasmineModeDeciderTest {
 
 	@Test
