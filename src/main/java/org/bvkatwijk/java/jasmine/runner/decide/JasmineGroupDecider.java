@@ -13,9 +13,7 @@ import org.junit.runner.notification.RunNotifier;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class JasmineGroupDecider {
@@ -31,13 +29,12 @@ public class JasmineGroupDecider {
 	}
 
 	public void process() {
-		JasmineMode jasmineMode = new JasmineModeDecider(source).get();
-		log.info("Running " + source.getDescription() + " in mode " + jasmineMode);
-		runCasesAndSubGroups(runNotifier, jasmineMode).accept(source);
+		runCasesAndSubGroups(runNotifier).accept(source);
 	}
 
-	private Consumer<? super JasmineGroup> runCasesAndSubGroups(RunNotifier runNotifier, JasmineMode jasmineMode) {
+	private Consumer<? super JasmineGroup> runCasesAndSubGroups(RunNotifier runNotifier) {
 		return jasmineGroup -> {
+			JasmineMode jasmineMode = new JasmineModeDecider(source).get();
 			jasmineGroup.getCases().forEach(processCase(runNotifier, jasmineMode));
 			jasmineGroup.getGroups().forEach(processGroup(runNotifier, jasmineMode));
 		};
@@ -45,12 +42,9 @@ public class JasmineGroupDecider {
 
 	private Consumer<? super JasmineGroup> processGroup(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineGroup -> {
-			log.info("Deciding " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
 			if (shouldRun(jasmineMode, jasmineGroup)) {
-				log.info("Running " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
-				runCasesAndSubGroups(runNotifier, jasmineMode).accept(jasmineGroup);
+				runCasesAndSubGroups(runNotifier).accept(jasmineGroup);
 			} else {
-				log.info("Ignoring " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
 				ignorer.ignoreGroup(runNotifier).accept(jasmineGroup);
 			}
 		};
@@ -58,12 +52,9 @@ public class JasmineGroupDecider {
 
 	private Consumer<? super JasmineCase> processCase(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineCase -> {
-			log.info("Deciding " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 			if (shouldRun(jasmineMode, jasmineCase)) {
-				log.info("Running " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 				runner.runIt(runNotifier, source.getDescription()).accept(jasmineCase);
 			} else {
-				log.info("Ignoring " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 				ignorer.ignoreCase(runNotifier).accept(jasmineCase);
 			}
 		};
