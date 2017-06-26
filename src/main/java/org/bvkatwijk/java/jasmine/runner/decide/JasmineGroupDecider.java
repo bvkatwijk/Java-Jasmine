@@ -53,6 +53,7 @@ public class JasmineGroupDecider {
 	private Consumer<? super JasmineCase> processCase(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineCase -> {
 			if (shouldRun(jasmineMode, jasmineCase)) {
+				System.err.println("running " + jasmineCase);
 				runner.runIt(runNotifier, source.getDescription()).accept(jasmineCase);
 			} else {
 				ignorer.ignoreCase(runNotifier).accept(jasmineCase);
