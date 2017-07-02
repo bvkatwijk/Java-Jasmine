@@ -26,18 +26,25 @@ public class JasmineGroupDecider {
 	private final JasmineGroupRunner runner;
 
 	public static JasmineGroupDecider of(RunNotifier runNotifier, JasmineGroup jasmineGroup) {
-		return new JasmineGroupDecider(runNotifier, jasmineGroup,
-				new JasmineGroupIgnorer(jasmineGroup.getDescription()), new JasmineGroupRunner());
+		return new JasmineGroupDecider(
+				runNotifier,
+				jasmineGroup,
+				new JasmineGroupIgnorer(jasmineGroup.getDescription()),
+				new JasmineGroupRunner());
 	}
 
 	public void process() {
-		JasmineMode jasmineMode = new JasmineModeDecider(source).get();
-		log.info("Running " + source.getDescription() + " in mode " + jasmineMode);
-		runCasesAndSubGroups(runNotifier, jasmineMode).accept(source);
+		processCasesAndSubGroups(runNotifier).accept(source);
 	}
-
-	private Consumer<? super JasmineGroup> runCasesAndSubGroups(RunNotifier runNotifier, JasmineMode jasmineMode) {
+	
+	/**
+	 * 
+	 * @param runNotifier
+	 * @return
+	 */
+	private Consumer<? super JasmineGroup> processCasesAndSubGroups(RunNotifier runNotifier) {
 		return jasmineGroup -> {
+			JasmineMode jasmineMode = new JasmineModeDecider(jasmineGroup).get();
 			jasmineGroup.getCases().forEach(processCase(runNotifier, jasmineMode));
 			jasmineGroup.getGroups().forEach(processGroup(runNotifier, jasmineMode));
 		};
@@ -45,25 +52,23 @@ public class JasmineGroupDecider {
 
 	private Consumer<? super JasmineGroup> processGroup(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineGroup -> {
-			log.info("Deciding " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
-			if (shouldRun(jasmineMode, jasmineGroup)) {
-				log.info("Running " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
-				runCasesAndSubGroups(runNotifier, jasmineMode).accept(jasmineGroup);
+			if(containsF(jasmineGroup) || shouldRun(jasmineMode, jasmineGroup)) {
+				processCasesAndSubGroups(runNotifier).accept(jasmineGroup);
 			} else {
-				log.info("Ignoring " + jasmineGroup.getDescription() + " for mode " + jasmineMode);
 				ignorer.ignoreGroup(runNotifier).accept(jasmineGroup);
 			}
 		};
 	}
 
+	private boolean containsF(JasmineGroup jasmineGroup) {
+		return new JasmineModeDecider(jasmineGroup).get().equals(JasmineMode.FOCUS);
+	}
+
 	private Consumer<? super JasmineCase> processCase(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineCase -> {
-			log.info("Deciding " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 			if (shouldRun(jasmineMode, jasmineCase)) {
-				log.info("Running " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 				runner.runIt(runNotifier, source.getDescription()).accept(jasmineCase);
 			} else {
-				log.info("Ignoring " + jasmineCase.getDescription() + " for mode " + jasmineMode);
 				ignorer.ignoreCase(runNotifier).accept(jasmineCase);
 			}
 		};
