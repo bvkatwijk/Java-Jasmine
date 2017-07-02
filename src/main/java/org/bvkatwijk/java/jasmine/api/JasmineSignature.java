@@ -43,5 +43,15 @@ public interface JasmineSignature {
 	 * @param testCase Runnable test case content
 	 */
 	void xit(String description, Runnable testCase);
+	
+	/**
+	 * @param beforeAll runnable to be executed once before all groups and cases
+	 */
+	void beforeAll(Runnable beforeAll);
+	
+	/**
+	 * @param beforeEach runnable to be executed before each subgroup and case
+	 */
+	void beforeEach(Runnable beforeEach);
 
 }
