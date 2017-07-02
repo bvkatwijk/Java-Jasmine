@@ -1,7 +1,7 @@
 # Java-Jasmine
 
 [![Build Status](https://travis-ci.org/bvkatwijk/Java-Jasmine.svg?branch=master)](https://travis-ci.org/bvkatwijk/Java-Jasmine)
-[![Code Climate](https://img.shields.io/codeclimate/github/kabisaict/flow.svg)](https://codeclimate.com/github/bvkatwijk/Java-Jasmine)
+[![Codecov](https://codecov.io/gh/bvkatwijk/Java-Jasmine/branch/master/graph/badge.svg)](https://codecov.io/gh/bvkatwijk/Java-Jasmine)
 
 ## Summary
 
