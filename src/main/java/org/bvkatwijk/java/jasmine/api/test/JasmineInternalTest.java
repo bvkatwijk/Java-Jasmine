@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.bvkatwijk.java.jasmine.api.JasmineSignature;
+import org.bvkatwijk.java.jasmine.api.before.BeforeAll;
+import org.bvkatwijk.java.jasmine.api.before.BeforeEach;
 import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.it.It;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
@@ -17,6 +19,8 @@ public abstract class JasmineInternalTest implements JasmineSignature {
 
 	final Collection<Describe> describes = new HashSet<>();
 	final Collection<It> its = new HashSet<>();
+	final Collection<BeforeAll> beforeAlls = new HashSet<>();
+	final Collection<BeforeEach> beforeEachs = new HashSet<>();
 
 	@Override
 	public void describe(String description, Runnable testGroup) {
@@ -47,7 +51,24 @@ public abstract class JasmineInternalTest implements JasmineSignature {
 	public void xit(String description, Runnable testCase) {
 		this.its.add(new It(description, testCase, Prefix.X));
 	}
+	
+	/**
+	 * @param beforeAll runnable to be executed once before all groups and cases
+	 */
+	@Override
+	public void beforeAll(Runnable beforeAll) {
+		this.beforeAlls.add(new BeforeAll(beforeAll));
+	}
+	
+	/**
+	 * @param beforeEach runnable to be executed before each subgroup and case
+	 */
+	@Override
+	public void beforeEach(Runnable beforeEach) {
+		this.beforeEachs.add(new BeforeEach(beforeEach));
+	}
 
+	/** Compile this {@link JasmineInternalTest}. Internal use only.*/
 	public JasmineGroup compile() {
 		return new JasmineGroupConverter().apply(this);
 	}
