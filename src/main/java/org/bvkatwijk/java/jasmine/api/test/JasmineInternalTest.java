@@ -8,6 +8,7 @@ import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.it.It;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
 import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
+import org.bvkatwijk.java.jasmine.compiled.JasmineGroupConverter;
 
 import lombok.Getter;
 
@@ -48,7 +49,7 @@ public abstract class JasmineInternalTest implements JasmineSignature {
 	}
 
 	public JasmineGroup compile() {
-		return JasmineGroup.of(this);
+		return new JasmineGroupConverter().apply(this);
 	}
 
 }
