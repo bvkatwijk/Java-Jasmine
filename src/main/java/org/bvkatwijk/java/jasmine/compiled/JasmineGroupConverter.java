@@ -16,6 +16,7 @@ import org.bvkatwijk.java.jasmine.utils.ClassNameProvider;
 public class JasmineGroupConverter implements Function<JasmineInternalTest, JasmineGroup> {
 	
 	private final JasmineCaseConverter itToCase = new JasmineCaseConverter();
+	private final JasmineBeforeAllConverter toJasmineBeforeAll = new JasmineBeforeAllConverter();
 
 	@Override
 	public JasmineGroup apply(JasmineInternalTest jasmineTest) {
@@ -31,6 +32,7 @@ public class JasmineGroupConverter implements Function<JasmineInternalTest, Jasm
 				.prefix(prefix)
 				.cases(toJasmineCases(jasmineTest, description, prefix))
 				.groups(toJasmineGroups(jasmineTest, description))
+				.beforeAlls(toJasmineBeforeAlls(jasmineTest))
 				.build();
 	}
 
@@ -57,6 +59,13 @@ public class JasmineGroupConverter implements Function<JasmineInternalTest, Jasm
 		return jasmineTest.getIts()
 				.stream()
 				.map(itToCase)
+				.collect(Collectors.toSet());
+	}
+
+	private Collection<JasmineBeforeAll> toJasmineBeforeAlls(JasmineInternalTest jasmineTest) {
+		return jasmineTest.getBeforeAlls()
+				.stream()
+				.map(toJasmineBeforeAll)
 				.collect(Collectors.toSet());
 	}
 
