@@ -2,6 +2,7 @@ package org.bvkatwijk.java.jasmine.runner.decide;
 
 import java.util.function.Consumer;
 
+import org.bvkatwijk.java.jasmine.compiled.JasmineBeforeAll;
 import org.bvkatwijk.java.jasmine.compiled.JasmineCase;
 import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
 import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
@@ -42,10 +43,16 @@ public class JasmineGroupDecider {
 	 */
 	private Consumer<? super JasmineGroup> processCasesAndSubGroups(RunNotifier runNotifier) {
 		return jasmineGroup -> {
+			jasmineGroup.getBeforeAlls().forEach(processBeforeAll());
+
 			JasmineMode jasmineMode = new JasmineModeDecider(jasmineGroup).get();
 			jasmineGroup.getCases().forEach(processCase(runNotifier, jasmineMode));
 			jasmineGroup.getGroups().forEach(processGroup(runNotifier, jasmineMode));
 		};
+	}
+
+	private Consumer<? super JasmineBeforeAll> processBeforeAll() {
+		return beforeAll -> beforeAll.getRunnable().run();
 	}
 
 	private Consumer<? super JasmineGroup> processGroup(RunNotifier runNotifier, JasmineMode jasmineMode) {
