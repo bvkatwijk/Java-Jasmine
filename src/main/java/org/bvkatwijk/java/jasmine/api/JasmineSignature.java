@@ -10,7 +10,7 @@ public interface JasmineSignature {
 	void describe(String description, Runnable testGroup);
 
 	/**
-	 * Isolated Test group specification, ignore non-isolated test groups
+	 * Focused Test group specification, ignore non-focused test groups
 	 * @param description String containing name of test group
 	 * @param testGroup Runnable test group content
 	 */
@@ -31,7 +31,7 @@ public interface JasmineSignature {
 	void it(String description, Runnable testCase);
 
 	/**
-	 * Isolated Test case specification, ignore non-isolated test cases
+	 * Focused Test case specification, ignore non-focused test cases
 	 * @param description String containing name of test case
 	 * @param testCase Runnable test case content
 	 */
