@@ -15,7 +15,7 @@ public class JasmineModeDecider implements Supplier<JasmineMode> {
 	
 	@Override
 	public JasmineMode get() {
-		return new JasmineNodeScanner(node -> node.getPrefix().equals(Prefix.F)).anyMatch(jasmineGroup)
+		return new JasmineNodeScanner(node -> node.getPrefix().equals(Prefix.F)).anyMatch(jasmineGroup.getChilden())
 				? JasmineMode.FOCUS : JasmineMode.NORMAL;
 	}
 
