@@ -3,12 +3,10 @@ package org.bvkatwijk.java.jasmine.api.x.nest;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.bvkatwijk.java.jasmine.api.test.JasmineInternalTest;
-import org.bvkatwijk.java.jasmine.runner.decide.JasmineGroupDecider;
+import org.bvkatwijk.java.jasmine.utils.Mocks;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.notification.RunNotifier;
-import org.mockito.Mockito;
 
 import lombok.Getter;
 
@@ -50,7 +48,7 @@ public class NestedXTest {
 
 	@BeforeClass
 	public static void runTest() {
-		JasmineGroupDecider.of(Mockito.mock(RunNotifier.class), NESTED_X_TEST.compile()).process();
+		Mocks.getMockRunner().accept(NESTED_X_TEST);
 	}
 
 	@Test
