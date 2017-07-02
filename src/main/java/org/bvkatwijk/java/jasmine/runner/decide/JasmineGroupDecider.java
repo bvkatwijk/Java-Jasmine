@@ -13,9 +13,7 @@ import org.junit.runner.notification.RunNotifier;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class JasmineGroupDecider {
@@ -30,7 +28,7 @@ public class JasmineGroupDecider {
 				runNotifier,
 				jasmineGroup,
 				new JasmineGroupIgnorer(jasmineGroup.getDescription()),
-				new JasmineGroupRunner());
+				new JasmineGroupRunner(jasmineGroup.getDescription()));
 	}
 
 	public void process() {
@@ -67,7 +65,7 @@ public class JasmineGroupDecider {
 	private Consumer<? super JasmineCase> processCase(RunNotifier runNotifier, JasmineMode jasmineMode) {
 		return jasmineCase -> {
 			if (shouldRun(jasmineMode, jasmineCase)) {
-				runner.runIt(runNotifier, source.getDescription()).accept(jasmineCase);
+				runner.runIt(runNotifier).accept(jasmineCase);
 			} else {
 				ignorer.ignoreCase(runNotifier).accept(jasmineCase);
 			}
