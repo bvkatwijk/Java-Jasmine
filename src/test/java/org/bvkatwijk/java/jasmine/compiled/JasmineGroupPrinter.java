@@ -13,20 +13,25 @@ public class JasmineGroupPrinter {
 	public String toString() {
 		return appendCases(
 				jasmineGroup.getCases(),
-				appendGroups(jasmineGroup.getGroups(), jasmineGroup.getDescription()));
+				appendGroups(
+						jasmineGroup.getGroups(),
+						jasmineGroup.getDescription(),
+						"\n\t"),
+				"\n\t");
 	}
 
-	private String appendGroups(Collection<JasmineGroup> groups, String result) {
+	private String appendGroups(Collection<JasmineGroup> groups, String result, String indent) {
 		for(JasmineGroup nextGroup : groups) {
-			result = appendGroups(nextGroup.getGroups(), result);
-			result = appendCases(nextGroup.getCases(), result);
+			result = result + indent + nextGroup.getDescription();
+			result = appendGroups(nextGroup.getGroups(), result, indent + "\t");
+			result = appendCases(nextGroup.getCases(), result, indent + "\t");
 		}
 		return result;
 	}
 
-	private String appendCases(Collection<JasmineCase> cases, String result) {
+	private String appendCases(Collection<JasmineCase> cases, String result, String indent) {
 		for(JasmineCase nextCase : cases) {
-			result = result + "\n\t" + nextCase.getDescription();
+			result = result + indent + nextCase.getDescription();
 		}
 		return result;
 	}
