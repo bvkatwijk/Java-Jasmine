@@ -8,11 +8,11 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class BeforeEachDidRunTest {
+public class BeforeEachSingleTest {
 	
 	private static final AtomicBoolean didRun = new AtomicBoolean(false);
 	
-	private static final JasmineInternalTest BEFORE_ALL_TEST = new JasmineInternalTest() {{
+	private static final JasmineInternalTest TEST = new JasmineInternalTest() {{
 		beforeEach(() -> {
 			didRun.set(true);
 		});
@@ -23,7 +23,7 @@ public class BeforeEachDidRunTest {
 	
 	@BeforeClass
 	public static void runTest() {
-		Mocks.getMockRunner().accept(BEFORE_ALL_TEST);
+		Mocks.getMockRunner().accept(TEST);
 	}
 	
 	@Test

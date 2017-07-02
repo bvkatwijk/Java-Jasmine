@@ -8,11 +8,11 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class BeforeAllDidRunTest {
+public class BeforeAllOnlyTest {
 
 	private static final AtomicBoolean didRun = new AtomicBoolean(false);
 
-	private static final JasmineInternalTest BEFORE_ALL_TEST = new JasmineInternalTest() {{
+	private static final JasmineInternalTest TEST = new JasmineInternalTest() {{
 		beforeAll(() -> {
 			didRun.set(true);
 		});
@@ -20,11 +20,11 @@ public class BeforeAllDidRunTest {
 
 	@BeforeClass
 	public static void runTest() {
-		Mocks.getMockRunner().accept(BEFORE_ALL_TEST);
+		Mocks.getMockRunner().accept(TEST);
 	}
 
 	@Test
-	public void beforeAll_shouldHaveRun() {
+	public void beforeAll_withoutOthers_shouldHaveRun() {
 		Assert.assertTrue(didRun.get());
 	}
 

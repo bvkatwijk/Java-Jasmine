@@ -12,7 +12,7 @@ public class BeforeEachOnlyTest {
 	
 	private static final AtomicBoolean didRun = new AtomicBoolean(false);
 	
-	private static final JasmineInternalTest BEFORE_ALL_TEST = new JasmineInternalTest() {{
+	private static final JasmineInternalTest TEST = new JasmineInternalTest() {{
 		beforeEach(() -> {
 			didRun.set(true);
 		});
@@ -20,11 +20,11 @@ public class BeforeEachOnlyTest {
 	
 	@BeforeClass
 	public static void runTest() {
-		Mocks.getMockRunner().accept(BEFORE_ALL_TEST);
+		Mocks.getMockRunner().accept(TEST);
 	}
 	
 	@Test
-	public void beforeEach_shouldNotHaveRun() {
+	public void beforeEach_withoutOthers_shouldNotHaveRun() {
 		Assert.assertFalse(didRun.get());
 	}
 
