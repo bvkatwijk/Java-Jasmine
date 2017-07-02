@@ -19,6 +19,7 @@ public class JasmineGroup implements JasmineNode {
 	private final Prefix prefix;
 	private final Collection<JasmineGroup> groups;
 	private final Collection<JasmineCase> cases;
+	private final Collection<JasmineBeforeAll> beforeAlls;
 
 	@Override
 	public Collection<JasmineNode> getChilden() {
