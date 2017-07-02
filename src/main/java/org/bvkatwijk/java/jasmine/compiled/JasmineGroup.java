@@ -20,6 +20,7 @@ public class JasmineGroup implements JasmineNode {
 	private final Collection<JasmineGroup> groups;
 	private final Collection<JasmineCase> cases;
 	private final Collection<JasmineBeforeAll> beforeAlls;
+	private final Collection<JasmineBeforeEach> beforeEachs;
 
 	@Override
 	public Collection<JasmineNode> getChilden() {
