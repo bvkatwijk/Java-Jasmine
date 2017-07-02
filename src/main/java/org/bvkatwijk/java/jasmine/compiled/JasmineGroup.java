@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
 import org.bvkatwijk.java.jasmine.api.test.JasmineInternalTest;
-import org.bvkatwijk.java.jasmine.name.ClassNameProvider;
+import org.bvkatwijk.java.jasmine.utils.ClassNameProvider;
 
 import lombok.Builder;
 import lombok.Getter;

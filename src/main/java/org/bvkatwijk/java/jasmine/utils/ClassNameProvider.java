@@ -1,4 +1,4 @@
-package org.bvkatwijk.java.jasmine.name;
+package org.bvkatwijk.java.jasmine.utils;
 
 public final class ClassNameProvider {
 	
