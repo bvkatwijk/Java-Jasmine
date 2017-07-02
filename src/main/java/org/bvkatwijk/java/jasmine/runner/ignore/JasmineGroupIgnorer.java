@@ -21,9 +21,7 @@ public class JasmineGroupIgnorer {
 
 	public Consumer<? super JasmineCase> ignoreCase(RunNotifier runNotifier) {
 		return jasmineCase -> {
-			Description description = Description.createTestDescription(baseName, jasmineCase.getDescription());
-			runNotifier.fireTestIgnored(description);
-			runNotifier.fireTestFinished(description);
+			runNotifier.fireTestIgnored(Description.createTestDescription(baseName, jasmineCase.getDescription()));
 		};
 	}
 	
