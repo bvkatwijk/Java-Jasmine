@@ -12,6 +12,7 @@ version '0.0.1'
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 
@@ -38,5 +39,12 @@ dependencies {
 test {
 	testLogging {
         events "standardOut", "started", "passed", "skipped", "failed"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
     }
 }
