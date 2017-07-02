@@ -37,12 +37,7 @@ public class JasmineGroupDecider {
 	public void process() {
 		processCasesAndSubGroups(runNotifier).accept(source);
 	}
-	
-	/**
-	 * 
-	 * @param runNotifier
-	 * @return
-	 */
+
 	private Consumer<? super JasmineGroup> processCasesAndSubGroups(RunNotifier runNotifier) {
 		return jasmineGroup -> {
 			jasmineGroup.getBeforeAlls().forEach(processBeforeAll());
