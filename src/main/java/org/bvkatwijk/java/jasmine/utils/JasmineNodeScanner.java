@@ -1,5 +1,6 @@
 package org.bvkatwijk.java.jasmine.utils;
 
+import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
@@ -16,10 +17,13 @@ public class JasmineNodeScanner {
 				|| testChildren(node);
 	}
 
-	private boolean testChildren(JasmineNode node) {
-		return node.getChilden()
-				.stream()
+	public boolean anyMatch(Collection<JasmineNode> node) {
+		return node.stream()
 				.anyMatch(this::anyMatch);
+	}
+
+	private boolean testChildren(JasmineNode node) {
+		return anyMatch(node.getChilden());
 	}
 
 }
