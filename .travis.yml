@@ -1,6 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-  
-env:
-  CODECLIMATE_REPO_TOKEN: 58bf7e230d145576db297cf0dba6e1fba64f88b9ee79218d8faae8ed1c18849a
+
+cc-test-reporter before-build
+
+cc-test-reporter after-build --exit-code $?
