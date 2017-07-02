@@ -23,7 +23,7 @@ public abstract class RunValidationTest {
 
 	private boolean runAndGetResult(Jasmine jasmine) {
 		JasmineGroupDecider.of(Mocks.getRunNotifier(), jasmine.getJasmineTest(() -> getDidRun().set(true)).compile()).process();
-		return didRun.get();
+		return getDidRun().get();
 	}
 
 
