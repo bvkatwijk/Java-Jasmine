@@ -7,13 +7,11 @@ import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
  * Ignorer for {@link JasmineCase}
  */
-@Getter
 @RequiredArgsConstructor
 public class JasmineGroupIgnorer {
 	
