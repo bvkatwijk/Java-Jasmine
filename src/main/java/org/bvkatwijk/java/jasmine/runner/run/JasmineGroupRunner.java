@@ -18,7 +18,10 @@ public class JasmineGroupRunner {
 	private final String sourceDescription;
 
 	public Consumer<? super JasmineCase> runIt(RunNotifier runNotifier) {
-		return it -> tryToRun(runNotifier, it.getRunnable(), Description.createTestDescription(sourceDescription, it.getDescription()));
+		return it -> tryToRun(
+				runNotifier,
+				it.getRunnable(),
+				Description.createTestDescription(sourceDescription, it.getDescription()));
 	}
 
 	private void tryToRun(RunNotifier runNotifier, Runnable runnable, Description description) {
