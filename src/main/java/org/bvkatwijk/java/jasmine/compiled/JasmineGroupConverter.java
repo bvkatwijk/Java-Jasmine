@@ -8,13 +8,12 @@ import java.util.stream.Collectors;
 import org.bvkatwijk.java.jasmine.api.describe.Describe;
 import org.bvkatwijk.java.jasmine.api.prefix.Prefix;
 import org.bvkatwijk.java.jasmine.api.test.JasmineInternalTest;
-import org.bvkatwijk.java.jasmine.utils.ClassNameProvider;
 
 /**
  * Converter from {@link JasmineInternalTest} to {@link JasmineGroup}
  */
 public class JasmineGroupConverter implements Function<JasmineInternalTest, JasmineGroup> {
-	
+
 	private final JasmineCaseConverter itToCase = new JasmineCaseConverter();
 	private final JasmineBeforeAllConverter toJasmineBeforeAll = new JasmineBeforeAllConverter();
 	private final JasmineBeforeEachConverter toJasmineBeforeEach = new JasmineBeforeEachConverter();
@@ -23,7 +22,7 @@ public class JasmineGroupConverter implements Function<JasmineInternalTest, Jasm
 	public JasmineGroup apply(JasmineInternalTest jasmineTest) {
 		return recursiveFrom(
 				jasmineTest,
-				ClassNameProvider.getClassName(jasmineTest.getClass()),
+				getClassName(jasmineTest.getClass()),
 				Prefix.NONE);
 	}
 
@@ -50,7 +49,7 @@ public class JasmineGroupConverter implements Function<JasmineInternalTest, Jasm
 		jasmineTest.getIts().clear();
 		jasmineTest.getBeforeAlls().clear();
 		jasmineTest.getBeforeEachs().clear();
-		
+
 		describe.getTestGroup().run();
 
 		return recursiveFrom(
@@ -78,6 +77,15 @@ public class JasmineGroupConverter implements Function<JasmineInternalTest, Jasm
 				.stream()
 				.map(toJasmineBeforeEach)
 				.collect(Collectors.toSet());
+	}
+
+	//
+
+	/** Return class or superclass name for better JUnit reporting */
+	private static String getClassName(Class<?> clazz) {
+		return clazz.getSimpleName().equals("")
+				? clazz.getSuperclass().getSimpleName()
+						: clazz.getSimpleName();
 	}
 
 }
