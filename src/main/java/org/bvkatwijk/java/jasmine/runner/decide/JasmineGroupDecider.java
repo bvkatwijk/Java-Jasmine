@@ -14,10 +14,8 @@ import org.bvkatwijk.java.jasmine.runner.ignore.JasmineGroupIgnorer;
 import org.bvkatwijk.java.jasmine.runner.run.JasmineGroupRunner;
 import org.junit.runner.notification.RunNotifier;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Getter
 @RequiredArgsConstructor
 public class JasmineGroupDecider {
 
