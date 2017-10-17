@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 
 import org.bvkatwijk.java.jasmine.compiled.JasmineBeforeAll;
 import org.bvkatwijk.java.jasmine.compiled.JasmineBeforeEach;
-import org.bvkatwijk.java.jasmine.compiled.JasmineCase;
 import org.bvkatwijk.java.jasmine.compiled.JasmineGroup;
 import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
 import org.bvkatwijk.java.jasmine.mode.JasmineMode;
@@ -33,16 +32,17 @@ public class JasmineGroupDecider {
 	}
 
 	public void process() {
-		processCasesAndSubGroups(runNotifier).accept(source);
+		processCasesAndSubGroups().accept(source);
 	}
 
-	private Consumer<? super JasmineGroup> processCasesAndSubGroups(RunNotifier runNotifier) {
+	private Consumer<? super JasmineGroup> processCasesAndSubGroups() {
 		return jasmineGroup -> {
 			jasmineGroup.getBeforeAlls().forEach(processBeforeAll());
 
 			JasmineMode jasmineMode = new JasmineModeDecider(jasmineGroup).get();
-			jasmineGroup.getCases().forEach(processCase(runNotifier, jasmineMode, jasmineGroup.getBeforeEachs()));
-			jasmineGroup.getGroups().forEach(processGroup(runNotifier, jasmineMode, jasmineGroup.getBeforeEachs()));
+			JasmineCaseProcessor jasmineCaseProcessor = new JasmineCaseProcessor(runNotifier, jasmineMode, ignorer, runner);
+			jasmineGroup.getCases().forEach(jasmineCaseProcessor.processCase(jasmineGroup.getBeforeEachs()));
+			jasmineGroup.getGroups().forEach(processGroup(jasmineMode, jasmineGroup.getBeforeEachs()));
 		};
 	}
 
@@ -54,11 +54,11 @@ public class JasmineGroupDecider {
 		return beforeEach -> beforeEach.getRunnable().run();
 	}
 
-	private Consumer<? super JasmineGroup> processGroup(RunNotifier runNotifier, JasmineMode jasmineMode, Collection<JasmineBeforeEach> beforeEachs) {
+	private Consumer<? super JasmineGroup> processGroup(JasmineMode jasmineMode, Collection<JasmineBeforeEach> beforeEachs) {
 		return jasmineGroup -> {
 			if(containsF(jasmineGroup) || shouldRun(jasmineMode, jasmineGroup)) {
 				beforeEachs.forEach(processBeforeEach());
-				processCasesAndSubGroups(runNotifier).accept(jasmineGroup);
+				processCasesAndSubGroups().accept(jasmineGroup);
 			} else {
 				ignorer.ignoreGroup(runNotifier).accept(jasmineGroup);
 			}
@@ -67,17 +67,6 @@ public class JasmineGroupDecider {
 
 	private boolean containsF(JasmineGroup jasmineGroup) {
 		return new JasmineModeDecider(jasmineGroup).get().equals(JasmineMode.FOCUS);
-	}
-
-	private Consumer<? super JasmineCase> processCase(RunNotifier runNotifier, JasmineMode jasmineMode, Collection<JasmineBeforeEach> beforeEachs) {
-		return jasmineCase -> {
-			if (shouldRun(jasmineMode, jasmineCase)) {
-				beforeEachs.forEach(processBeforeEach());
-				runner.runIt(runNotifier).accept(jasmineCase);
-			} else {
-				ignorer.ignoreCase(runNotifier).accept(jasmineCase);
-			}
-		};
 	}
 
 	private boolean shouldRun(JasmineMode jasmineMode, JasmineNode jasmineGroup) {
