@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/bvkatwijk/Java-Jasmine.svg?branch=master)](https://travis-ci.org/bvkatwijk/Java-Jasmine)
 [![Codecov](https://codecov.io/gh/bvkatwijk/Java-Jasmine/branch/master/graph/badge.svg)](https://codecov.io/gh/bvkatwijk/Java-Jasmine)
+[![BCH compliance](https://bettercodehub.com/edge/badge/bvkatwijk/Java-Jasmine?branch=master)](https://bettercodehub.com/)
 
 ## Summary
 
