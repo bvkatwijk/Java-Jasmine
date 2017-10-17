@@ -9,14 +9,12 @@ import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
 import org.bvkatwijk.java.jasmine.mode.JasmineMode;
 import org.bvkatwijk.java.jasmine.runner.ignore.JasmineGroupIgnorer;
 import org.bvkatwijk.java.jasmine.runner.run.JasmineGroupRunner;
-import org.junit.runner.notification.RunNotifier;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class JasmineCaseProcessor {
 
-	private final RunNotifier runNotifier;
 	private final JasmineMode jasmineMode;
 	private final JasmineGroupIgnorer ignorer;
 	private final JasmineGroupRunner runner;

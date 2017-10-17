@@ -40,7 +40,7 @@ public class JasmineGroupDecider {
 			jasmineGroup.getBeforeAlls().forEach(processBeforeAll());
 
 			JasmineMode jasmineMode = new JasmineModeDecider(jasmineGroup).get();
-			JasmineCaseProcessor jasmineCaseProcessor = new JasmineCaseProcessor(runNotifier, jasmineMode, ignorer, runner);
+			JasmineCaseProcessor jasmineCaseProcessor = new JasmineCaseProcessor(jasmineMode, ignorer, runner);
 			jasmineGroup.getCases().forEach(jasmineCaseProcessor.processCase(jasmineGroup.getBeforeEachs()));
 			jasmineGroup.getGroups().forEach(processGroup(jasmineMode, jasmineGroup.getBeforeEachs()));
 		};
