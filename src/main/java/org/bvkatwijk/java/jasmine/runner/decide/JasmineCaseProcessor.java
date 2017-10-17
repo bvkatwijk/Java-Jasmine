@@ -28,7 +28,7 @@ public class JasmineCaseProcessor {
 	private void runOrIgnoreIt(Collection<JasmineBeforeEach> beforeEachs, JasmineCase jasmineCase) {
 		if (shouldRun(jasmineMode, jasmineCase)) {
 			beforeEachs.forEach(processBeforeEach());
-			runner.runIt(runNotifier).accept(jasmineCase);
+			runner.runIt().accept(jasmineCase);
 		} else {
 			ignorer.ignoreCase().accept(jasmineCase);
 		}

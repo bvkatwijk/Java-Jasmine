@@ -28,7 +28,7 @@ public class JasmineGroupDecider {
 				runNotifier,
 				jasmineGroup,
 				new JasmineGroupIgnorer(jasmineGroup.getDescription(), runNotifier),
-				new JasmineGroupRunner(jasmineGroup.getDescription()));
+				new JasmineGroupRunner(jasmineGroup.getDescription(), runNotifier));
 	}
 
 	public void process() {

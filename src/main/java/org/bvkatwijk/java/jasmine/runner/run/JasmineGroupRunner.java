@@ -14,17 +14,17 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class JasmineGroupRunner {
-	
-	private final String sourceDescription;
 
-	public Consumer<? super JasmineCase> runIt(RunNotifier runNotifier) {
+	private final String sourceDescription;
+	private final RunNotifier runNotifier;
+
+	public Consumer<? super JasmineCase> runIt() {
 		return it -> tryToRun(
-				runNotifier,
 				it.getRunnable(),
 				Description.createTestDescription(sourceDescription, it.getDescription()));
 	}
 
-	private void tryToRun(RunNotifier runNotifier, Runnable runnable, Description description) {
+	private void tryToRun(Runnable runnable, Description description) {
 		try {
 			runNotifier.fireTestStarted(description);
 			runnable.run();

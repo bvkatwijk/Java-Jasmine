@@ -14,19 +14,17 @@ import org.mockito.Mockito;
  */
 public class JasmineGroupRunnerTest {
 
-	private static final JasmineGroupRunner RUNNER = new JasmineGroupRunner("sourceDescription");
-
 	@Test
 	public void runner_shouldCallNotifierFinished_whenCaseSucceeds() {
 		RunNotifier runNotifier = Mocks.getRunNotifier();
-		RUNNER.runIt(runNotifier).accept(mockSuccessCase());
+		new JasmineGroupRunner("sourceDescription", runNotifier).runIt().accept(mockSuccessCase());
 		Mockito.verify(runNotifier).fireTestFinished(ArgumentMatchers.any());
 	}
 
 	@Test
 	public void runner_shouldCallNotifierFailed_whenCaseFails() {
 		RunNotifier runNotifier = Mocks.getRunNotifier();
-		RUNNER.runIt(runNotifier).accept(mockFailCase());
+		new JasmineGroupRunner("sourceDescription", runNotifier).runIt().accept(mockFailCase());
 		Mockito.verify(runNotifier).fireTestFailure(ArgumentMatchers.any());
 	}
 
