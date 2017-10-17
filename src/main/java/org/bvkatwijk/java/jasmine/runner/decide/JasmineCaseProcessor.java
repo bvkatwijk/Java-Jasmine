@@ -8,7 +8,7 @@ import org.bvkatwijk.java.jasmine.compiled.JasmineCase;
 import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
 import org.bvkatwijk.java.jasmine.mode.JasmineMode;
 import org.bvkatwijk.java.jasmine.runner.ignore.JasmineGroupIgnorer;
-import org.bvkatwijk.java.jasmine.runner.run.JasmineGroupRunner;
+import org.bvkatwijk.java.jasmine.runner.run.JasmineCaseRunner;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ public class JasmineCaseProcessor {
 
 	private final JasmineMode jasmineMode;
 	private final JasmineGroupIgnorer ignorer;
-	private final JasmineGroupRunner runner;
+	private final JasmineCaseRunner runner;
 
 	public Consumer<? super JasmineCase> processCase(Collection<JasmineBeforeEach> beforeEachs) {
 		return jasmineCase -> runOrIgnoreIt(beforeEachs, jasmineCase);

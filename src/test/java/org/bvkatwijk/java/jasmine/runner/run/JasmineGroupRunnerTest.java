@@ -10,21 +10,21 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 /**
- * Test cases for {@link JasmineGroupRunner}
+ * Test cases for {@link JasmineCaseRunner}
  */
 public class JasmineGroupRunnerTest {
 
 	@Test
 	public void runner_shouldCallNotifierFinished_whenCaseSucceeds() {
 		RunNotifier runNotifier = Mocks.getRunNotifier();
-		new JasmineGroupRunner("sourceDescription", runNotifier).runIt().accept(mockSuccessCase());
+		new JasmineCaseRunner("sourceDescription", runNotifier).runIt().accept(mockSuccessCase());
 		Mockito.verify(runNotifier).fireTestFinished(ArgumentMatchers.any());
 	}
 
 	@Test
 	public void runner_shouldCallNotifierFailed_whenCaseFails() {
 		RunNotifier runNotifier = Mocks.getRunNotifier();
-		new JasmineGroupRunner("sourceDescription", runNotifier).runIt().accept(mockFailCase());
+		new JasmineCaseRunner("sourceDescription", runNotifier).runIt().accept(mockFailCase());
 		Mockito.verify(runNotifier).fireTestFailure(ArgumentMatchers.any());
 	}
 

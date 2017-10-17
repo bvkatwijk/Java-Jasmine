@@ -10,7 +10,7 @@ import org.bvkatwijk.java.jasmine.compiled.JasmineNode;
 import org.bvkatwijk.java.jasmine.mode.JasmineMode;
 import org.bvkatwijk.java.jasmine.mode.JasmineModeDecider;
 import org.bvkatwijk.java.jasmine.runner.ignore.JasmineGroupIgnorer;
-import org.bvkatwijk.java.jasmine.runner.run.JasmineGroupRunner;
+import org.bvkatwijk.java.jasmine.runner.run.JasmineCaseRunner;
 import org.junit.runner.notification.RunNotifier;
 
 import lombok.RequiredArgsConstructor;
@@ -21,14 +21,14 @@ public class JasmineGroupDecider {
 	private final RunNotifier runNotifier;
 	private final JasmineGroup source;
 	private final JasmineGroupIgnorer ignorer;
-	private final JasmineGroupRunner runner;
+	private final JasmineCaseRunner runner;
 
 	public static JasmineGroupDecider of(RunNotifier runNotifier, JasmineGroup jasmineGroup) {
 		return new JasmineGroupDecider(
 				runNotifier,
 				jasmineGroup,
 				new JasmineGroupIgnorer(jasmineGroup.getDescription(), runNotifier),
-				new JasmineGroupRunner(jasmineGroup.getDescription(), runNotifier));
+				new JasmineCaseRunner(jasmineGroup.getDescription(), runNotifier));
 	}
 
 	public void process() {

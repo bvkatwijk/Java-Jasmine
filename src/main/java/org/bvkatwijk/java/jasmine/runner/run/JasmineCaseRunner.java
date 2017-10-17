@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  * Executor for {@link JasmineCase}
  */
 @RequiredArgsConstructor
-public class JasmineGroupRunner {
+public class JasmineCaseRunner {
 
 	private final String sourceDescription;
 	private final RunNotifier runNotifier;
