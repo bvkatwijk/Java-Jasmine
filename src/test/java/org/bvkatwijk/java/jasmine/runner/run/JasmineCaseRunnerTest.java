@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 /**
  * Test cases for {@link JasmineCaseRunner}
  */
-public class JasmineGroupRunnerTest {
+public class JasmineCaseRunnerTest {
 
 	@Test
 	public void runner_shouldCallNotifierFinished_whenCaseSucceeds() {
