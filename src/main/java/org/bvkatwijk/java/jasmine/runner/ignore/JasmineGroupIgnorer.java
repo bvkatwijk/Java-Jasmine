@@ -14,19 +14,19 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class JasmineGroupIgnorer {
-	
-	private final String baseName;
 
-	public Consumer<? super JasmineCase> ignoreCase(RunNotifier runNotifier) {
-		return jasmineCase -> {
-			runNotifier.fireTestIgnored(Description.createTestDescription(baseName, jasmineCase.getDescription()));
-		};
+	private final String baseName;
+	private final RunNotifier runNotifier;
+
+	public Consumer<? super JasmineCase> ignoreCase() {
+		return jasmineCase -> runNotifier
+				.fireTestIgnored(Description.createTestDescription(baseName, jasmineCase.getDescription()));
 	}
-	
-	public Consumer<? super JasmineGroup> ignoreGroup(RunNotifier runNotifier) {
+
+	public Consumer<? super JasmineGroup> ignoreGroup() {
 		return jasmineGroup -> {
-			jasmineGroup.getCases().forEach(this.ignoreCase(runNotifier));
-			jasmineGroup.getGroups().forEach(this.ignoreGroup(runNotifier));
+			jasmineGroup.getCases().forEach(this.ignoreCase());
+			jasmineGroup.getGroups().forEach(this.ignoreGroup());
 		};
 	}
 

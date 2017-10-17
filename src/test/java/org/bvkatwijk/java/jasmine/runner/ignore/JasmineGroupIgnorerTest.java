@@ -12,15 +12,16 @@ import org.junit.runner.notification.RunNotifier;
  * Test cases for {@link JasmineGroupIgnorer}
  */
 public class JasmineGroupIgnorerTest {
-	
+
 	private final AtomicBoolean didRun = new AtomicBoolean(false);
 
 	@Test
 	public void ignorer_shouldNotRunJasmineCase() {
-		new JasmineGroupIgnorer("baseName")
-		.ignoreCase(new RunNotifier())
-		.accept(new JasmineCase("description", Prefix.NONE, () -> { didRun.set(true); }));
-		
+		new JasmineGroupIgnorer("baseName", new RunNotifier()).ignoreCase()
+		.accept(new JasmineCase("description", Prefix.NONE, () -> {
+			didRun.set(true);
+		}));
+
 		Assert.assertFalse(didRun.get());
 	}
 }

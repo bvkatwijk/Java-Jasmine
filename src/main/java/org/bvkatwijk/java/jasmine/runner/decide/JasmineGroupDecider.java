@@ -27,7 +27,7 @@ public class JasmineGroupDecider {
 		return new JasmineGroupDecider(
 				runNotifier,
 				jasmineGroup,
-				new JasmineGroupIgnorer(jasmineGroup.getDescription()),
+				new JasmineGroupIgnorer(jasmineGroup.getDescription(), runNotifier),
 				new JasmineGroupRunner(jasmineGroup.getDescription()));
 	}
 
@@ -60,7 +60,7 @@ public class JasmineGroupDecider {
 				beforeEachs.forEach(processBeforeEach());
 				processCasesAndSubGroups().accept(jasmineGroup);
 			} else {
-				ignorer.ignoreGroup(runNotifier).accept(jasmineGroup);
+				ignorer.ignoreGroup().accept(jasmineGroup);
 			}
 		};
 	}

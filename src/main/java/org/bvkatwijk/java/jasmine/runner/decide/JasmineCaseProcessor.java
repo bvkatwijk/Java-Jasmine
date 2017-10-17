@@ -30,7 +30,7 @@ public class JasmineCaseProcessor {
 			beforeEachs.forEach(processBeforeEach());
 			runner.runIt(runNotifier).accept(jasmineCase);
 		} else {
-			ignorer.ignoreCase(runNotifier).accept(jasmineCase);
+			ignorer.ignoreCase().accept(jasmineCase);
 		}
 	}
 
