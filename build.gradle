@@ -14,20 +14,19 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 
-sourceCompatibility = 1.8
-
-configurations {
-    provided
-    compile.extendsFrom provided
-}
+sourceCompatibility = 1.9
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+}
+
+configurations {
+	testCompile.extendsFrom compileOnly
 }
 
 dependencies {
 
-	provided group: 'org.projectlombok', name: 'lombok', version: '1.16.16'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 
 	compile group: 'junit', name: 'junit', version: '4.12'
 	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
@@ -38,14 +37,14 @@ dependencies {
 
 test {
 	testLogging {
-        events "standardOut", "started", "passed", "skipped", "failed"
-    }
+		events "standardOut", "started", "passed", "skipped", "failed"
+	}
 }
 
 jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
+	reports {
+		xml.enabled true
+	}
 }
 
 check.dependsOn jacocoTestReport

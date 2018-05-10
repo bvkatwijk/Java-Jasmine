@@ -18,21 +18,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JasmineGroupDecider {
 
-	private final RunNotifier runNotifier;
 	private final JasmineGroup source;
 	private final JasmineGroupIgnorer ignorer;
 	private final JasmineCaseRunner runner;
 
 	public static JasmineGroupDecider of(RunNotifier runNotifier, JasmineGroup jasmineGroup) {
 		return new JasmineGroupDecider(
-				runNotifier,
 				jasmineGroup,
 				new JasmineGroupIgnorer(jasmineGroup.getDescription(), runNotifier),
 				new JasmineCaseRunner(jasmineGroup.getDescription(), runNotifier));
 	}
 
 	public void process() {
-		processCasesAndSubGroups().accept(source);
+		processCasesAndSubGroups().accept(this.source);
 	}
 
 	private Consumer<? super JasmineGroup> processCasesAndSubGroups() {
@@ -40,7 +38,8 @@ public class JasmineGroupDecider {
 			jasmineGroup.getBeforeAlls().forEach(processBeforeAll());
 
 			JasmineMode jasmineMode = new JasmineModeDecider(jasmineGroup).get();
-			JasmineCaseProcessor jasmineCaseProcessor = new JasmineCaseProcessor(jasmineMode, ignorer, runner);
+			JasmineCaseProcessor jasmineCaseProcessor = new JasmineCaseProcessor(jasmineMode, this.ignorer,
+					this.runner);
 			jasmineGroup.getCases().forEach(jasmineCaseProcessor.processCase(jasmineGroup.getBeforeEachs()));
 			jasmineGroup.getGroups().forEach(processGroup(jasmineMode, jasmineGroup.getBeforeEachs()));
 		};
@@ -54,13 +53,14 @@ public class JasmineGroupDecider {
 		return beforeEach -> beforeEach.getRunnable().run();
 	}
 
-	private Consumer<? super JasmineGroup> processGroup(JasmineMode jasmineMode, Collection<JasmineBeforeEach> beforeEachs) {
+	private Consumer<? super JasmineGroup> processGroup(JasmineMode jasmineMode,
+			Collection<JasmineBeforeEach> beforeEachs) {
 		return jasmineGroup -> {
-			if(containsF(jasmineGroup) || shouldRun(jasmineMode, jasmineGroup)) {
+			if (containsF(jasmineGroup) || shouldRun(jasmineMode, jasmineGroup)) {
 				beforeEachs.forEach(processBeforeEach());
 				processCasesAndSubGroups().accept(jasmineGroup);
 			} else {
-				ignorer.ignoreGroup().accept(jasmineGroup);
+				this.ignorer.ignoreGroup().accept(jasmineGroup);
 			}
 		};
 	}

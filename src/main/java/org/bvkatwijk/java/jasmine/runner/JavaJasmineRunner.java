@@ -9,21 +9,21 @@ import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 
 public class JavaJasmineRunner extends Runner {
-	
+
 	private final JasmineGroup jasmineGroup;
 
 	public JavaJasmineRunner(Class<JasmineTest> testClass) throws Exception {
-		this.jasmineGroup = testClass.newInstance().compile();
+		this.jasmineGroup = testClass.getDeclaredConstructor().newInstance().compile();
 	}
 
 	@Override
 	public Description getDescription() {
-		return new JasmineDescription(jasmineGroup).get();
+		return new JasmineDescription(this.jasmineGroup).get();
 	}
 
 	@Override
 	public void run(RunNotifier runNotifier) {
-		JasmineGroupDecider.of(runNotifier, jasmineGroup).process();
+		JasmineGroupDecider.of(runNotifier, this.jasmineGroup).process();
 	}
 
 }
