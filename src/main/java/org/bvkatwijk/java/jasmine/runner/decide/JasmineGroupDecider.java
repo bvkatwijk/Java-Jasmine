@@ -66,7 +66,9 @@ public class JasmineGroupDecider {
 	}
 
 	private boolean containsF(JasmineGroup jasmineGroup) {
-		return new JasmineModeDecider(jasmineGroup).get().equals(JasmineMode.FOCUS);
+		return new JasmineModeDecider(jasmineGroup)
+				.get()
+				.equals(JasmineMode.FOCUS);
 	}
 
 	private boolean shouldRun(JasmineMode jasmineMode, JasmineNode jasmineGroup) {

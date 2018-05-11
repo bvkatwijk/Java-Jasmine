@@ -51,24 +51,30 @@ public abstract class JasmineInternalTest implements JasmineSignature {
 	public void xit(String description, Runnable testCase) {
 		this.its.add(new It(description, testCase, Prefix.X));
 	}
-	
+
 	/**
-	 * @param beforeAll runnable to be executed once before all groups and cases
+	 * @param beforeAll
+	 *            runnable to be executed once before all groups and cases
 	 */
 	@Override
 	public void beforeAll(Runnable beforeAll) {
 		this.beforeAlls.add(new BeforeAll(beforeAll));
 	}
-	
+
 	/**
-	 * @param beforeEach runnable to be executed before each subgroup and case
+	 * @param beforeEach
+	 *            runnable to be executed before each subgroup and case
 	 */
 	@Override
 	public void beforeEach(Runnable beforeEach) {
 		this.beforeEachs.add(new BeforeEach(beforeEach));
 	}
 
-	/** Compile this {@link JasmineInternalTest}. Internal use only.*/
+	/**
+	 * Compile this {@link JasmineInternalTest}. Internal use only.
+	 * 
+	 * @return compiled {@link JasmineGroup}
+	 */
 	public JasmineGroup compile() {
 		return new JasmineGroupConverter().apply(this);
 	}
