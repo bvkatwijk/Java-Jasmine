@@ -23,10 +23,6 @@ repositories {
 	mavenCentral()
 }
 
-configurations {
-	testCompile.extendsFrom compileOnly
-}
-
 dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.4")
 	compileOnly("org.projectlombok:lombok:1.18.4")
@@ -34,6 +30,8 @@ dependencies {
 	compile group: 'junit', name: 'junit', version: '4.12'
 	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.4")
+	testCompileOnly("org.projectlombok:lombok:1.18.4")
 	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.8.47'
 }
 
