@@ -1,0 +1,10 @@
+version: '3.5'
+
+services:
+  # docker-compose run gradle <task> (default: test)
+  gradle: &gradle
+    image: gradle:5.4.1-jdk11
+    entrypoint: gradle
+    command: test
+    volumes:
+      - .:/home/gradle
