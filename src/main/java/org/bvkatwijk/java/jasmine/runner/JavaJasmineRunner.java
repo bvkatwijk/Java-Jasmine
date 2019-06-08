@@ -25,5 +25,4 @@ public class JavaJasmineRunner extends Runner {
 	public void run(RunNotifier runNotifier) {
 		JasmineGroupDecider.of(runNotifier, this.jasmineGroup).process();
 	}
-
 }
