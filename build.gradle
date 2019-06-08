@@ -1,9 +1,7 @@
 buildscript {
-
 	repositories {
 		mavenCentral()
 	}
-
 }
 
 group 'org.bvkatwijk.java.jasmine'
@@ -15,6 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 
 sourceCompatibility = 1.9
+targetCompatibility = 1.9
 
 repositories {
 	mavenCentral()
