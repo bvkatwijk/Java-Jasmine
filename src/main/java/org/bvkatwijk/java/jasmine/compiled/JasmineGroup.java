@@ -1,6 +1,7 @@
 package org.bvkatwijk.java.jasmine.compiled;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,14 +18,18 @@ public class JasmineGroup implements JasmineNode {
 
 	private final String description;
 	private final Prefix prefix;
-	private final Collection<JasmineGroup> groups;
-	private final Collection<JasmineCase> cases;
+	@Builder.Default
+	private final Collection<JasmineGroup> groups = new HashSet<>();
+	@Builder.Default
+	private final Collection<JasmineCase> cases = new HashSet<>();
 	private final Collection<JasmineBeforeAll> beforeAlls;
 	private final Collection<JasmineBeforeEach> beforeEachs;
 
 	@Override
 	public Collection<JasmineNode> getChilden() {
-		return Stream.concat(getGroups().stream(), getCases().stream()).collect(Collectors.toSet());
+		return Stream
+				.concat(getGroups().stream(), getCases().stream())
+				.collect(Collectors.toSet());
 	}
 
 }
