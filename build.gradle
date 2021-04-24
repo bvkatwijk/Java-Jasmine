@@ -23,15 +23,16 @@ repositories {
 }
 
 dependencies {
-	annotationProcessor("org.projectlombok:lombok:1.18.4")
-	compileOnly("org.projectlombok:lombok:1.18.4")
+	compileOnly "org.projectlombok:lombok:1.18.20"
+	annotationProcessor "org.projectlombok:lombok:1.18.20"
 
-	compile group: 'junit', name: 'junit', version: '4.12'
-	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+	implementation group: "junit", name: "junit", version: "4.13"
+	implementation group: "org.slf4j", name: "slf4j-simple", version: "1.7.30"
 
-	testAnnotationProcessor("org.projectlombok:lombok:1.18.4")
-	testCompileOnly("org.projectlombok:lombok:1.18.4")
-	testCompile group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
+	testCompileOnly "org.projectlombok:lombok:1.18.20"
+	testAnnotationProcessor "org.projectlombok:lombok:1.18.20"
+	
+	testImplementation group: "org.mockito", name: "mockito-core", version: "3.9.0"
 }
 
 test {
