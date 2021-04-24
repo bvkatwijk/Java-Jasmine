@@ -15,9 +15,8 @@ group 'org.bvkatwijk.java.jasmine'
 description 'Java Jasmine'
 version '0.1.1'
 
-
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
 	mavenCentral()
