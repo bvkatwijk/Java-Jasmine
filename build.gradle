@@ -11,9 +11,9 @@ plugins {
 	id "info.solidsoft.pitest" version "1.6.0"
 }
 
-group 'org.bvkatwijk.java.jasmine'
-description 'Java Jasmine'
-version '0.1.1'
+group "org.bvkatwijk.java.jasmine"
+description "Java Jasmine"
+version "0.1.1"
 
 sourceCompatibility = 1.11
 targetCompatibility = 1.11
